@@ -1,0 +1,114 @@
+{% load static %}
+{% load custom_filters %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpaceX</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="web icon" type="image/png" href="{% static 'img/icon.png' %}" >
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <br><br>
+    <h1>SpaceX Uçuşları <img class="spacex-logo" src="{% static 'img/spacex_logo.png' %}" alt="spacex logo" title="SpaceX Logo"></h1>
+
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#successful"
+            >Başarılı</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#failed">Başarısız</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#upcoming">Yaklaşan</a>
+        </li>
+      </ul>
+  
+    
+      <div class="tab-content">
+        <div id="successful" class="container tab-pane active">
+            {% for launch in launches.successful %}
+            <br>
+            {% if launch.links.patch.large %}
+            <img
+            src="{{launch.links.patch.large}}"
+            alt="{{launch.name}}"
+            class="launch-image"
+            />
+            <br><br>
+            {% endif %}
+            <p> İsim : {{ launch.name }}</p>
+            <p>Tarih : {{ launch.date_utc|date_only_filter }}</p>
+            {% if launch.details %}
+            <p>Açıklama : {{launch.details}}</p>
+            {% endif %}
+            <div class="launch-links">
+                <a href="{{launch.links.wikipedia}}" target="_blank">Wikipedia</a>
+            </div>
+            <hr>
+            <br>
+            {% endfor %}
+        </div>
+       
+       
+        <div id="failed" class="container tab-pane fade">
+            {% for launch in launches.failed %}
+              <br>
+            {% if launch.links.patch.large %}
+            <img
+            src="{{launch.links.patch.large}}"
+            alt="{{launch.name}}"
+            class="launch-image"
+            />
+            <br><br>
+            {% endif %}
+              <p> İsim : {{ launch.name }}</p>
+              <p>Tarih : {{ launch.date_utc|date_only_filter }}</p>
+              {% if launch.details %}
+              <p>Açıklama : {{launch.details}}</p>
+              {% endif %}
+              <div class="launch-links">
+                <a href="{{launch.links.wikipedia}}" target="_blank">Wikipedia</a>
+              </div>
+              <hr>
+              <br>
+            {% endfor %}
+        </div>
+        
+        
+        <div id="upcoming" class="container tab-pane fade">
+            {% for launch in launches.upcoming %}
+            <br>
+            {% if launch.links.patch.large %}
+            <img
+            src="{{launch.links.patch.large}}"
+            alt="{{launch.name}}"
+            class="launch-image"
+            />
+            <br><br>
+            {% endif %}
+            <p> İsim : {{ launch.name }}</p>
+            <p>Tarih : {{ launch.date_utc|date_only_filter }}</p>
+            {% if launch.details %}
+                <p>Açıklama : {{launch.details}}</p>
+            {% endif %}
+            <div class="launch-links">
+                <a href="{{launch.links.wikipedia}}" target="_blank">Wikipedia</a>
+            </div>
+            <hr>
+            <br>
+            {% endfor %}
+        </div>
+    </div>
+        
+</body>
+</html>

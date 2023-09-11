@@ -1,0 +1,15 @@
+h1 {
+    text-align: center;
+}
+
+.launch-image {
+    float: left;
+    margin-right: 100px;
+    height: 100px;
+}
+
+.spacex-logo {
+    height: 100px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
